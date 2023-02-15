@@ -242,7 +242,18 @@ function handleDefenders(){
             }
             if (defenders[i] && defenders[i].health <= 0){
                 defenders.splice(i, 1);
-                i--;
+                if(enemies[j].health == 200){
+                    i--;
+        
+                   }else if(enemies[j].health == 500){
+                    i--;
+                    i--;
+                   }else if (enemies[j].health == 2000){
+                    i--;
+                    i--;
+                    i--;
+                    i--;
+                   }
                 enemies[j].movement = enemies[j].speed;
             }
             
@@ -269,7 +280,7 @@ class Enemy {
             this.speed = 0.6;
            
            }else if (this.health == 2000){
-            this.speed =  0.3;
+            this.speed =  0.2;
            
            }
        
