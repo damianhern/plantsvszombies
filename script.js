@@ -15,7 +15,7 @@ let Ptype = 0;
 let enemiesInterval = 500;
 let cost = 0;
 let numberOfResources = 1000;
-
+let round = 1;
 
 const projectiles = [];
 const defenders = [];
@@ -107,11 +107,6 @@ class Projectile {
        
     }
     update(){
-        this.x ++;
-        this.x ++;
-        this.x ++;
-        this.x ++;
-        this.x ++;
         this.x ++;
         this.x ++;
         this.x ++;
@@ -449,6 +444,18 @@ function handleGameStatus(){
     ctx.font = '25px Helvetica';
     ctx.fillText('Score: ' + score, 10, 35);
     ctx.fillText('Available resources: ' + numberOfResources, 10, 85);
+    if(score >= 50){
+      round = 2;
+    }else if(score >= 150){
+      round = 3;
+    }else if(score >= 250){
+      round = 4;
+    }else if(score >= 350){
+      round = 5;
+    }else if(score >= 450){
+      round = 'last';
+    }
+    ctx.fillText('Round: ' + round,700,35);
     if (gameOver){
         ctx.fillStyle = 'black';
         ctx.font = '110px Helvetica';
