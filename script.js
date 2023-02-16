@@ -393,11 +393,15 @@ class Resource {
         }
     }
     draw(){
-        ctx.fillStyle = 'yellow';
-        ctx.fillRect(this.x, this.y, this.width, this.height);
+       
+        ctx.beginPath();
+        ctx.arc(this.x +5, this.y + 30, 20, 0, 2 * Math.PI);
+        ctx.fillStyle = "yellow";
+        ctx.fill();
+        ctx.stroke();
         ctx.fillStyle = 'black';
-        ctx.font = '30px Helvetica';
-        ctx.fillText(this.amount, this.x + 5, this.y + 30);
+        ctx.font = '25px Helvetica';
+        ctx.fillText(this.amount, this.x - 10, this.y + 40);
     }
 }
 function handleResources(){
