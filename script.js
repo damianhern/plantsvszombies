@@ -127,10 +127,6 @@ class Projectile {
         this.x ++;
         this.x ++;
         this.x ++;
-        this.x ++;
-        this.x ++;
-        this.x ++;
-        this.x ++;
     }
     draw(){
        
