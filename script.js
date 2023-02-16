@@ -13,8 +13,7 @@ let Dtype = 0;
 let Ptype = 0;
 
 let enemiesInterval = 500;
-
-const defenderCost = 50;
+let cost = 0;
 let numberOfResources = 1000;
 
 
@@ -120,6 +119,18 @@ class Projectile {
         this.x ++;
         this.x ++;
         this.x ++;
+        this.x ++;
+        this.x ++;
+        this.x ++;
+        this.x ++;
+        this.x ++;
+        this.x ++;
+        this.x ++;
+        this.x ++;
+        this.x ++;
+        this.x ++;
+        this.x ++;
+        this.x ++;
     }
     draw(){
        
@@ -173,7 +184,13 @@ class Defender {
            }else if (this.type == 2){
               this.health = 2000;
            }
-        
+           if(this.type == 1){
+            cost = 15;
+           }else if(this.type == 0){
+               cost = 50;
+           }else if (this.type == 2){
+            cost = 30;
+           }
 
         
     }
@@ -224,9 +241,9 @@ canvas.addEventListener('click', function(e){
     for (let i = 0; i < defenders.length; i++){
         if (defenders[i].x === gridPositionX && defenders[i].y === gridPositionY) return;
     }
-    if (numberOfResources >= defenderCost) {
+    if (numberOfResources >= cost) {
         defenders.push(new Defender(gridPositionX, gridPositionY));
-        numberOfResources -= defenderCost;
+        numberOfResources -= cost;
     }
 
 })
