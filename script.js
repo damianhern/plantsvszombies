@@ -8,7 +8,7 @@ const gameGrid = [];
 let gameOver = false;
 let frame = 0;
 let score = 0;
-const winningScore = 400;
+const winningScore = 500;
 let Dtype = 0;
 let Ptype = 0;
 
@@ -108,6 +108,11 @@ class Projectile {
        
     }
     update(){
+        this.x ++;
+        this.x ++;
+        this.x ++;
+        this.x ++;
+        this.x ++;
         this.x ++;
         this.x ++;
         this.x ++;
@@ -323,7 +328,7 @@ class Enemy {
            }else if (this.startinghealth == 2000){
             ctx.fillStyle = "white";
             ctx.font = '20px Helvetica';
-            ctx.fillText(" Big Boy", this.x + 7, this.y + 50);
+            ctx.fillText(" Big Boi", this.x + 7, this.y + 50);
            }
        
 
