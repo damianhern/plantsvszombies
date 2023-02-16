@@ -199,19 +199,19 @@ class Defender {
        
         if(this.type == 1){
             ctx.fillStyle = "red";
-            ctx.fillRect(this.x,this.y-10,this.width,10);
+            ctx.fillRect(this.x,this.y-14,this.width,10);
             ctx.fillStyle = "green";
-             ctx.fillRect(this.x,this.y-10,this.width * this.health/100 /2,10);
+             ctx.fillRect(this.x,this.y-14,this.width * this.health/100 /2,10);
            }else if(this.type == 0){
             ctx.fillStyle = "red";
-            ctx.fillRect(this.x,this.y-10,this.width,10);
+            ctx.fillRect(this.x,this.y-14,this.width,10);
             ctx.fillStyle = "green";
-            ctx.fillRect(this.x,this.y-10,this.width * this.health/100 /5,10);
+            ctx.fillRect(this.x,this.y-14,this.width * this.health/100 /5,10);
            }else if (this.type == 2){
             ctx.fillStyle = "red";
-            ctx.fillRect(this.x,this.y-10,this.width,10);
+            ctx.fillRect(this.x,this.y-14,this.width,10);
             ctx.fillStyle = "green";
-            ctx.fillRect(this.x,this.y-10,this.width * this.health/100 /20,10);
+            ctx.fillRect(this.x,this.y-14,this.width * this.health/100 /20,10);
            }
     }
     update(){
@@ -309,19 +309,19 @@ class Enemy {
         ctx.fillRect(this.x, this.y, this.width, this.height);
         if(this.startinghealth == 200){
             ctx.fillStyle = "red";
-            ctx.fillRect(this.x,this.y-10,this.width,10);
+            ctx.fillRect(this.x,this.y-15,this.width,10);
             ctx.fillStyle = "green";
-             ctx.fillRect(this.x,this.y-10,this.width * this.health/100 /2,10);
+             ctx.fillRect(this.x,this.y-15,this.width * this.health/100 /2,10);
            }else if(this.startinghealth == 500){
             ctx.fillStyle = "red";
-            ctx.fillRect(this.x,this.y-10,this.width,10);
+            ctx.fillRect(this.x,this.y-15,this.width,10);
             ctx.fillStyle = "green";
-            ctx.fillRect(this.x,this.y-10,this.width * this.health/100 /5,10);
+            ctx.fillRect(this.x,this.y-15,this.width * this.health/100 /5,10);
            }else if (this.startinghealth == 2000){
             ctx.fillStyle = "red";
-            ctx.fillRect(this.x,this.y-10,this.width,10);
+            ctx.fillRect(this.x,this.y-15,this.width,10);
             ctx.fillStyle = "green";
-            ctx.fillRect(this.x,this.y-10,this.width * this.health/100 /20,10);
+            ctx.fillRect(this.x,this.y-15,this.width * this.health/100 /20,10);
            }
        
        
