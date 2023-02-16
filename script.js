@@ -442,19 +442,20 @@ animate();
 function handleGameStatus(){
     ctx.fillStyle = 'white';
     ctx.font = '25px Helvetica';
+    if(score == 100){
+        round = 2;
+      }else if(score == 150){
+        round = 3;
+      }else if(score == 250){
+        round = 4;
+      }else if(score == 350){
+        round = 5;
+      }else if(score == 450){
+        round = 'last';
+      }
     ctx.fillText('Score: ' + score, 10, 35);
     ctx.fillText('Available resources: ' + numberOfResources, 10, 85);
-    if(score >= 50){
-      round = 2;
-    }else if(score >= 150){
-      round = 3;
-    }else if(score >= 250){
-      round = 4;
-    }else if(score >= 350){
-      round = 5;
-    }else if(score >= 450){
-      round = 'last';
-    }
+    
     ctx.fillText('Round: ' + round,700,35);
     if (gameOver){
         ctx.fillStyle = 'black';
