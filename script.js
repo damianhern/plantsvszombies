@@ -252,8 +252,6 @@ function handleDefenders(){
             if (defenders[i] && collision(defenders[i], enemies[j])){
                 enemies[j].movement = 0;
                 defenders[i].health--;
-                defenders[i].health--;
-                defenders[i].health--;
             }
             if (defenders[i] && defenders[i].health <= 0){
                 defenders.splice(i, 1);
@@ -354,7 +352,7 @@ function handleEnemies(){
             const findThisIndex = enemyPositions.indexOf(enemies[i].y);
             enemyPositions.splice(findThisIndex,1);
             enemies.splice(i, 1);
-            numberOfResources += 20;
+            numberOfResources += 25;
             i--
             score++;
         }
