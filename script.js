@@ -462,7 +462,7 @@ class Enemy {
             ctx.font = '20px Helvetica';
             ctx.fillText(" Average", this.x + 7, this.y + 50);
            }else if (this.type == 2){
-            ctx.fillStyle = "black";
+            ctx.fillStyle = "gold";
             ctx.fillRect(this.x,this.y,this.width,this.height);
             ctx.fillStyle = "white";
             ctx.font = '20px Helvetica';
