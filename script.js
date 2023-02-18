@@ -292,31 +292,31 @@ function handleDefenders(){
             defenders[i].shooting = false;
             defenders[i].timer = 0;
         }
+      
         for (let j = 0; j < enemies.length; j++){
+           
             if (defenders[i] && collision(defenders[i], enemies[j])){
                 enemies[j].movement = 0;
                 defenders[i].health--;
-            }
-            if (defenders[i] && defenders[i].health <= 0){
-                defenders.splice(i, 1);
-                if(enemies[j].health == 200){
-                    i--;
-        
-                   }else if(enemies[j].health == 500){
-                    i--;
-                    i--;
-                   }else if (enemies[j].health == 2000){
-                    i--;
-                    i--;
-                    i--;
-                    i--;
-                   }
-                enemies[j].movement = enemies[j].speed;
+                defenders[i].health--;
+                console.log(defenders[i] && defenders[i].health <= 0 == true);
+            
             }
             
-        }
-
+            if (defenders[i] && defenders[i].health <= 0){
+                console.log(enemies[j]);
+                defenders.splice(i, 1);
+                 enemies[j].movement = enemies[j].speed;          
+               
+            }
+      
+     
+            
+        
+       
+       
     }
+}
 }
 const enemyTypes = [];
 const weakling = new Image();
@@ -336,61 +336,65 @@ class Enemy {
         this.width = cellSize - cellGap * 2;
         this.height = cellSize - cellGap * 2;
         this.health = Eamounts[Math.floor(Math.random() * Eamounts.length)];
-        this.startinghealth = this.health = Eamounts[Math.floor(Math.random() * Eamounts.length)];
+        this.startinghealth = Eamounts[Math.floor(Math.random() * Eamounts.length)];
         if(this.health == 200){
-            this.speed =  0.9;
+            this.type = 0;
 
            }else if(this.health == 500){
-            this.speed = 0.6;
+            this.type = 1;
            
            }else if (this.health == 2000){
+            this.type = 2;
+           
+           }
+        if(this.type == 0){
+            this.speed =  0.9;
+
+           }else if(this.type == 1){
+            this.speed = 0.6;
+           
+           }else if (this.type == 2){
             this.speed =  0.2;
            
            }
-           if(this.startinghealth == 200){
+           if(this.type == 0){
             this.enemyType = enemyTypes[0];
 
-           }else if(this.startinghealth == 500){
-            this.enemyType = enemyTypes[1];
-           
-           }else if (this.startinghealth == 2000){
-            this.speed =  0.2;
-           
            }
        
         this.frameX = 0;
         this.frameY = 0;
         this.minFrame = 0;
-        if(this.startinghealth == 200){
+        if(this.type == 0){
             this.maxFrame = 7;
 
-           }else if(this.startinghealth == 500){
+           }else if(this.type == 1){
             this.maxFrame = 9;
            
-           }else if (this.startinghealth == 2000){
+           }else if (this.type == 2){
             this.maxFrame = 7;
            
            }
        
        
-        if(this.startinghealth == 200){
+        if(this.type == 0){
             this.spriteWidth = 292;
 
-           }else if(this.startinghealth == 500){
+           }else if(this.type == 1){
             this.spriteWidth = 177;
            
-           }else if (this.startinghealth == 2000){
+           }else if (this.type == 2){
             this.spriteWidth = 176.6;
            
            }
-           if(this.startinghealth == 200){
+           if(this.type == 0){
             this.spriteHeight = 410;
 
-           }else if(this.startinghealth == 500){
+           }else if(this.type == 1){
             this.spriteHeight = 208;
 
            
-           }else if (this.startinghealth == 2000){
+           }else if (this.type == 2){
             this.spriteHeight = 410;
 
            
@@ -402,37 +406,26 @@ class Enemy {
         
     }
     update(){
-        let animateduration = 0;
-        if(this.startinghealth == 200){
-            animateduration = 10;
-           }else if(this.startinghealth == 500){
-            animateduration = 10;
-           
-           }else if (this.startinghealth == 2000){
-            animateduration = 10;
-           
-           }
-        this.x -= this.movement;
-        if(frame % 10 === 0){
+        if(frame % 10 == 0){
             if(this.frameX < this.maxFrame) this.frameX++;
             else this.frameX = this.minFrame;
         }
-      
+        this.x -= this.movement;
     }
     draw(){
        // ctx.fillStyle = 'red';
        // ctx.fillRect(this.x, this.y, this.width, this.height);
-        if(this.startinghealth == 200){
+        if(this.type == 0){
             ctx.fillStyle = "red";
             ctx.fillRect(this.x,this.y-15,this.width,10);
             ctx.fillStyle = "green";
              ctx.fillRect(this.x,this.y-15,this.width * this.health/100 /2,10);
-           }else if(this.startinghealth == 500){
+           }else if(this.type == 1){
             ctx.fillStyle = "red";
             ctx.fillRect(this.x,this.y-15,this.width,10);
             ctx.fillStyle = "green";
             ctx.fillRect(this.x,this.y-15,this.width * this.health/100 /5,10);
-           }else if (this.startinghealth == 2000){
+           }else if (this.type == 2){
             ctx.fillStyle = "red";
             ctx.fillRect(this.x,this.y-15,this.width,10);
             ctx.fillStyle = "green";
@@ -440,16 +433,16 @@ class Enemy {
            }
        
        
-        if(this.startinghealth == 200){
+        if(this.type == 0){
         ctx.drawImage(this.enemyType, this.frameX * this.spriteWidth, 0,this.spriteWidth,this.spriteHeight,this.x,this.y,this.width,this.height);
-           }else if(this.startinghealth == 500){
+           }else if(this.type == 1){
             //ctx.drawImage(this.enemyType, this.frameX * this.spriteWidth, 0,this.spriteWidth,this.spriteHeight,this.x,this.y,this.width,this.height);
             ctx.fillStyle = "red";
             ctx.fillRect(this.x,this.y,this.width,this.height);
             ctx.fillStyle = "white";
             ctx.font = '20px Helvetica';
             ctx.fillText(" Average", this.x + 7, this.y + 50);
-           }else if (this.startinghealth == 2000){
+           }else if (this.type == 2){
             ctx.fillStyle = "black";
             ctx.fillRect(this.x,this.y,this.width,this.height);
             ctx.fillStyle = "white";
@@ -478,7 +471,7 @@ function handleEnemies(){
             const findThisIndex = enemyPositions.indexOf(enemies[i].y);
             enemyPositions.splice(findThisIndex,1);
             enemies.splice(i, 1);
-            i--
+            i--;
         }
         if (enemies[i] && enemies[i].x < 0){
             gameOver = true;
@@ -489,7 +482,7 @@ function handleEnemies(){
         enemies.push(new Enemy(verticalPosition));
         enemyPositions.push(verticalPosition);
         if (enemiesInterval > 100) enemiesInterval -= 100;
-        console.log('enemy added ' + enemiesInterval);
+       
     };
 };
 
