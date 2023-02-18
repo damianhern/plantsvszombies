@@ -65,7 +65,44 @@ function handleGamegrid(){
 }
 
 /*********************************************************************************/
+const floatingMessages = [];
+class floatingMessage{
+    constructor(value,x,y,size,color){
+        this.value = value;
+        this.x = x;
+        this.y = y;
+        this.size = size;
+        this.lifeSpan = 0;
+        this.color = color;
+        this.opacity = 1;
+    }
+    update(){
+        this.y -= 0.3;
+        this.lifeSpan += 1;
+        if (this.opacity > 0.01) this.opacity -= 0.01;
 
+    }
+    draw(){
+        ctx.globalAlpha = this.opacity;
+        ctx.fillStyle = this.color;
+        ctx.font = this.size + 'px Orbitron';
+        ctx.fillText(this.value, this.x, this.y);
+        ctx.globalAlpha = 1;
+    }
+    
+}
+function handleFloatingMessages(){
+    for(let i = 0; i < floatingMessages.length; i++){
+        floatingMessages[i].update();
+        floatingMessages[i].draw();
+        if (floatingMessages[i].lifeSpan >= 50){
+            floatingMessages.splice(i, 1);
+            i--;
+
+        }
+
+    }
+}
 // Projectiles
 class Projectile {
     constructor(x, y){
@@ -107,10 +144,6 @@ class Projectile {
        
     }
     update(){
-        this.x ++;
-        this.x ++;
-        this.x ++;
-        this.x ++;
         this.x ++;
         this.x ++;
         this.x ++;
@@ -218,7 +251,16 @@ class Defender {
         if (this.shooting){
             this.timer++;
             Ptype = this.type;
-            if (this.timer % 90 === 0){
+            let shootingSpeed = 0;
+            if(this.type == 1){
+               shootingSpeed = 100;
+               }else if(this.type == 0){
+                   shootingSpeed = 200;
+               }else if (this.type == 2){
+                   shootingSpeed = 0;
+       
+               }
+            if (this.timer % shootingSpeed === 0){
                 projectiles.push(new Projectile(this.x + 70, this.y + cellSize / 2));
             }
         }
@@ -235,6 +277,8 @@ canvas.addEventListener('click', function(e){
     if (numberOfResources >= cost) {
         defenders.push(new Defender(gridPositionX, gridPositionY));
         numberOfResources -= cost;
+    }else{
+        floatingMessages.push(new floatingMessage('Need more Resources!', mouse.x, mouse.y, 25,'blue'));
     }
 
 })
@@ -274,12 +318,19 @@ function handleDefenders(){
 
     }
 }
-/*********************************************************************************/
-
+const enemyTypes = [];
+const weakling = new Image();
+weakling.src ='weakling.png';
+enemyTypes.push(weakling);
+//const average = new Image();
+//average.src ='average.png';
+//enemyTypes.push(average);
 // Enemies
 const Eamounts = [200,500,2000];
 class Enemy {
     constructor(verticalPosition){
+        
+        
         this.x = canvas.width;
         this.y = verticalPosition;
         this.width = cellSize - cellGap * 2;
@@ -296,17 +347,81 @@ class Enemy {
             this.speed =  0.2;
            
            }
+           if(this.startinghealth == 200){
+            this.enemyType = enemyTypes[0];
+
+           }else if(this.startinghealth == 500){
+            this.enemyType = enemyTypes[1];
+           
+           }else if (this.startinghealth == 2000){
+            this.speed =  0.2;
+           
+           }
        
+        this.frameX = 0;
+        this.frameY = 0;
+        this.minFrame = 0;
+        if(this.startinghealth == 200){
+            this.maxFrame = 7;
+
+           }else if(this.startinghealth == 500){
+            this.maxFrame = 9;
+           
+           }else if (this.startinghealth == 2000){
+            this.maxFrame = 7;
+           
+           }
+       
+       
+        if(this.startinghealth == 200){
+            this.spriteWidth = 292;
+
+           }else if(this.startinghealth == 500){
+            this.spriteWidth = 177;
+           
+           }else if (this.startinghealth == 2000){
+            this.spriteWidth = 176.6;
+           
+           }
+           if(this.startinghealth == 200){
+            this.spriteHeight = 410;
+
+           }else if(this.startinghealth == 500){
+            this.spriteHeight = 208;
+
+           
+           }else if (this.startinghealth == 2000){
+            this.spriteHeight = 410;
+
+           
+           }
+        
+           
         this.movement = this.speed;
       
         
     }
     update(){
+        let animateduration = 0;
+        if(this.startinghealth == 200){
+            animateduration = 10;
+           }else if(this.startinghealth == 500){
+            animateduration = 10;
+           
+           }else if (this.startinghealth == 2000){
+            animateduration = 10;
+           
+           }
         this.x -= this.movement;
+        if(frame % 10 === 0){
+            if(this.frameX < this.maxFrame) this.frameX++;
+            else this.frameX = this.minFrame;
+        }
+      
     }
     draw(){
-        ctx.fillStyle = 'red';
-        ctx.fillRect(this.x, this.y, this.width, this.height);
+       // ctx.fillStyle = 'red';
+       // ctx.fillRect(this.x, this.y, this.width, this.height);
         if(this.startinghealth == 200){
             ctx.fillStyle = "red";
             ctx.fillRect(this.x,this.y-15,this.width,10);
@@ -326,18 +441,24 @@ class Enemy {
        
        
         if(this.startinghealth == 200){
-            ctx.fillStyle = "white";
-            ctx.font = '20px Helvetica';
-            ctx.fillText("Weakling", this.x + 7, this.y + 50);
+        ctx.drawImage(this.enemyType, this.frameX * this.spriteWidth, 0,this.spriteWidth,this.spriteHeight,this.x,this.y,this.width,this.height);
            }else if(this.startinghealth == 500){
+            //ctx.drawImage(this.enemyType, this.frameX * this.spriteWidth, 0,this.spriteWidth,this.spriteHeight,this.x,this.y,this.width,this.height);
+            ctx.fillStyle = "red";
+            ctx.fillRect(this.x,this.y,this.width,this.height);
             ctx.fillStyle = "white";
             ctx.font = '20px Helvetica';
-            ctx.fillText("Average", this.x + 7, this.y + 50);
+            ctx.fillText(" Average", this.x + 7, this.y + 50);
            }else if (this.startinghealth == 2000){
+            ctx.fillStyle = "black";
+            ctx.fillRect(this.x,this.y,this.width,this.height);
             ctx.fillStyle = "white";
             ctx.font = '20px Helvetica';
             ctx.fillText(" Big Boi", this.x + 7, this.y + 50);
            }
+
+        //ctx.drawImage(img, sx, sy,sw,sh,dx,dy,dw,dh);
+       
        
 
     }
@@ -349,12 +470,15 @@ function handleEnemies(){
         enemies[i].update();
         enemies[i].draw();
         if (enemies[i] && enemies[i].health <= 0){
+            let gainedResources = enemies[i].startinghealth/10;
+            numberOfResources += gainedResources;
+            score++;
+            floatingMessages.push(new floatingMessage('+' + gainedResources,enemies[i].x ,enemies[i].y ,30 ,'black'));
+            floatingMessages.push(new floatingMessage('+' + gainedResources, 250, 50, 30, 'black'));
             const findThisIndex = enemyPositions.indexOf(enemies[i].y);
             enemyPositions.splice(findThisIndex,1);
             enemies.splice(i, 1);
-            numberOfResources += 25;
             i--
-            score++;
         }
         if (enemies[i] && enemies[i].x < 0){
             gameOver = true;
@@ -405,6 +529,8 @@ function handleResources(){
         resources[i].draw();
         if (resources[i] && collision(resources[i], mouse)){
             numberOfResources += resources[i].amount;
+            floatingMessages.push(new floatingMessage('+' + resources[i].amount,resources[i].x ,resources[i].y ,30 ,'black'));
+            floatingMessages.push(new floatingMessage('+' + resources[i].amount, 250, 50, 30, 'black'));
             resources.splice(i, 1);
         }
     }
@@ -434,6 +560,7 @@ function animate(){
     handleDefenders();
     handleProjectiles();
     handleGameStatus();
+    handleFloatingMessages();
     frame++;
     if (!gameOver) requestAnimationFrame(animate);
 }
