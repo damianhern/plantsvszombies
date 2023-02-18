@@ -110,7 +110,7 @@ class Projectile {
         this.type = Ptype;
         if (this.type == 1){
             this.y = y - 14;
-          }else if (this.type==0){
+          }else if (this.type==0 || this.type==3 ){
             this.y = y -47;
           }else if (this.type==2){
             this.y = y -47;
@@ -118,7 +118,7 @@ class Projectile {
           //projectile width
           if (this.type == 1){
             this.width = 50;
-          }else if (this.type==0){
+          }else if (this.type==0 ||this.type==3){
             this.width = 30;
           }else if (this.type==2){
             this.width = 1;
@@ -126,7 +126,7 @@ class Projectile {
           //projectile height
           if (this.type == 1){
             this.height = 20;
-          }else if (this.type==0){
+          }else if (this.type==0 ||this.type==3){
             this.height = 30;
           }else if (this.type==2){
             this.height = 1;
@@ -136,10 +136,12 @@ class Projectile {
         //projectile power 
         if (this.type == 1){
             this.power = 75;
-          }else if (this.type ==0){
+          }else if (this.type ==0 ){
             this.power = 125;
           }else if (this.type ==2){
             this.power = 0;
+          }else if(this.type==3){
+            this.power = 250;
           }
        
     }
@@ -160,7 +162,7 @@ class Projectile {
        
         if (this.type == 1){
           img = document.getElementById("arrow");
-        }else if(this.type == 0 ){
+        }else if(this.type == 0 || this.type==3 ){
             var img = document.getElementById("cannonball");
         }else if(this.type == 2 ){
            
@@ -168,7 +170,6 @@ class Projectile {
            
         }
         ctx.drawImage(img,this.x, this.y, this.width, this.height);
-
     }
 }
 function handleProjectiles(){
@@ -179,14 +180,18 @@ function handleProjectiles(){
         for (let y = 0; y < enemies.length; y++){
             if (enemies[y] && projectiles[i] && collision(projectiles[i], enemies[y])){
                 enemies[y].health -= projectiles[i].power;
+               if(projectiles[i].type != 3){
                 projectiles.splice(i, 1);
                 i--;
+               }
                 if(enemies[y].health > 0 ){floatingMessages.push(new floatingMessage('hit', enemies[y].x, enemies[y].y, 25,'blue'));}
             }
         };
         if (projectiles[i] && projectiles[i].x > canvas.width - cellSize){
-            projectiles.splice(i, 1);
-            i--;
+                projectiles.splice(i, 1);
+                i--;
+            
+           
         }
     }
 }
@@ -207,17 +212,21 @@ class Defender {
         this.shooting = false;
         if(this.type == 1){
             this.health = 200;
-           }else if(this.type == 0){
+           }else if(this.type == 0 ){
                this.health = 500;
            }else if (this.type == 2){
               this.health = 2000;
-           }
+           }else if (this.type == 3){
+            this.health = 1000;
+         }
            if(this.type == 1){
             cost = 15;
-           }else if(this.type == 0){
+           }else if(this.type == 0 ){
                cost = 50;
            }else if (this.type == 2){
             cost = 30;
+           }else if(this.type == 3){
+            cost = 500;
            }
 
         
@@ -226,7 +235,7 @@ class Defender {
         
         if(this.type == 1){
          cimg = document.getElementById("archer");
-        }else if(this.type == 0){
+        }else if(this.type == 0||this.type == 3){
             var cimg = document.getElementById("cannon");
         }else if (this.type == 2){
             cimg = document.getElementById("wall");
@@ -249,7 +258,13 @@ class Defender {
             ctx.fillRect(this.x,this.y-14,this.width,10);
             ctx.fillStyle = "green";
             ctx.fillRect(this.x,this.y-14,this.width * this.health/100 /20,10);
+           }else if (this.type == 3){
+            ctx.fillStyle = "red";
+            ctx.fillRect(this.x,this.y-14,this.width,10);
+            ctx.fillStyle = "green";
+            ctx.fillRect(this.x,this.y-14,this.width * this.health/100 /10,10);
            }
+
     }
     update(){
         if (this.shooting){
@@ -258,7 +273,7 @@ class Defender {
             let shootingSpeed = 0;
             if(this.type == 1){
                shootingSpeed = 100;
-               }else if(this.type == 0){
+               }else if(this.type == 0||this.type == 3){
                    shootingSpeed = 200;
                }else if (this.type == 2){
                    shootingSpeed = 0;
@@ -621,7 +636,7 @@ function wall(){
     Dtype = 2; 
     Ptype = 2;
 }
-function bomb(){
+function Ucannon(){
     Dtype = 3;
     Ptype = 3;
 }
