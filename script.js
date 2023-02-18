@@ -163,9 +163,12 @@ class Projectile {
         }else if(this.type == 0 ){
             var img = document.getElementById("cannonball");
         }else if(this.type == 2 ){
+           
             img = document.getElementById("cannonball");
+           
         }
         ctx.drawImage(img,this.x, this.y, this.width, this.height);
+
     }
 }
 function handleProjectiles(){
