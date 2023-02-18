@@ -178,6 +178,7 @@ function handleProjectiles(){
                 enemies[y].health -= projectiles[i].power;
                 projectiles.splice(i, 1);
                 i--;
+                if(enemies[y].health > 0 ){floatingMessages.push(new floatingMessage('hit', enemies[y].x, enemies[y].y, 25,'blue'));}
             }
         };
         if (projectiles[i] && projectiles[i].x > canvas.width - cellSize){
