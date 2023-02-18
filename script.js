@@ -135,9 +135,9 @@ class Projectile {
         this.speed = 3;
         //projectile power 
         if (this.type == 1){
-            this.power = 50;
+            this.power = 75;
           }else if (this.type ==0){
-            this.power = 100;
+            this.power = 125;
           }else if (this.type ==2){
             this.power = 0;
           }
