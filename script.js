@@ -114,9 +114,11 @@ class Projectile {
             this.y = y -47;
           }else if (this.type==2){
             this.y = y -47;
+          }else if ( this.type==4){
+            this.y = y -27;
           }
           //projectile width
-          if (this.type == 1){
+          if (this.type == 1|| this.type == 4){
             this.width = 50;
           }else if (this.type==0 ||this.type==3){
             this.width = 30;
@@ -124,7 +126,7 @@ class Projectile {
             this.width = 1;
           }
           //projectile height
-          if (this.type == 1){
+          if (this.type == 1 || this.type ==4){
             this.height = 20;
           }else if (this.type==0 ||this.type==3){
             this.height = 30;
@@ -134,7 +136,7 @@ class Projectile {
       
         this.speed = 3;
         //projectile power 
-        if (this.type == 1){
+        if (this.type == 1 || this.type ==4){
             this.power = 75;
           }else if (this.type ==0 ){
             this.power = 125;
@@ -162,9 +164,13 @@ class Projectile {
        
         if (this.type == 1){
           img = document.getElementById("arrow");
-        }else if(this.type == 0 || this.type==3 ){
+        }else if(this.type == 0 || this.type==3){
             var img = document.getElementById("cannonball");
-        }else if(this.type == 2 ){
+        }else if(this.type == 2){
+           
+            img = document.getElementById("cannonball");
+           
+        }else if(this.type == 4){
            
             img = document.getElementById("cannonball");
            
@@ -176,14 +182,20 @@ function handleProjectiles(){
     for (let i = 0; i < projectiles.length; i++){
         projectiles[i].update();
         projectiles[i].draw();
-        console.log(projectiles[i]);
         for (let y = 0; y < enemies.length; y++){
             if (enemies[y] && projectiles[i] && collision(projectiles[i], enemies[y])){
                 enemies[y].health -= projectiles[i].power;
-               if(projectiles[i].type != 3){
+                if (projectiles[i].type == 4 && enemies[y].type == 0){
+                    console.log('working');
+                    let bonus =50;
+                    numberOfResources += bonus;
+                    floatingMessages.push(new floatingMessage('Bonus : ' + bonus, enemies[y].x, enemies[y].y, 25,'blue'));
+                    }
+               if (projectiles[i].type != 3){
                 projectiles.splice(i, 1);
                 i--;
                }
+                
                 if(enemies[y].health > 0 ){floatingMessages.push(new floatingMessage('hit', enemies[y].x, enemies[y].y, 25,'blue'));}
             }
         };
@@ -198,7 +210,10 @@ function handleProjectiles(){
 /*********************************************************************************/
 
 // Defenders
-
+const DefenderTypes = [];
+const plant= new Image();
+plant.src ='plant.png';
+DefenderTypes.push(plant);
 class Defender {
     constructor(x, y){
         this.x = x;
@@ -210,7 +225,23 @@ class Defender {
         this.projectiles = [];
         this.timer = 0;
         this.shooting = false;
-        if(this.type == 1){
+        this.frameX = 0;
+        this.frameY = 0;
+        this.minFrame = 0;
+        if(this.type == 4){
+            this.maxFrame = 1;
+           }
+       
+       
+        if(this.type == 4){
+            this.spriteWidth = 167;
+
+           }
+           if(this.type == 4){
+            this.spriteHeight = 243;
+
+           }
+        if(this.type == 1|| this.type == 4){
             this.health = 200;
            }else if(this.type == 0 ){
                this.health = 500;
@@ -219,7 +250,7 @@ class Defender {
            }else if (this.type == 3){
             this.health = 1000;
          }
-           if(this.type == 1){
+           if(this.type == 1 || this.type ==4){
             cost = 15;
            }else if(this.type == 0 ){
                cost = 50;
@@ -228,6 +259,10 @@ class Defender {
            }else if(this.type == 3){
             cost = 500;
            }
+           if(this.type == 4){
+            this.DefenderType = DefenderTypes[0];
+
+           }
 
         
     }
@@ -235,15 +270,20 @@ class Defender {
         
         if(this.type == 1){
          cimg = document.getElementById("archer");
-        }else if(this.type == 0||this.type == 3){
+        }else if(this.type == 0||this.type ==3){
             var cimg = document.getElementById("cannon");
         }else if (this.type == 2){
             cimg = document.getElementById("wall");
 
-        }
-        ctx.drawImage(cimg,this.x, this.y, this.width, this.height);
+        } 
+         if (this.type == 4){
+            ctx.drawImage(this.DefenderType, this.frameX * this.spriteWidth, 0,this.spriteWidth,this.spriteHeight,this.x,this.y,this.width,this.height);
+           }
+        
+            if(this.type != 4)ctx.drawImage(cimg,this.x, this.y, this.width, this.height);
        
-        if(this.type == 1){
+       
+        if(this.type == 1 || this.type == 4){
             ctx.fillStyle = "red";
             ctx.fillRect(this.x,this.y-14,this.width,10);
             ctx.fillStyle = "green";
@@ -264,11 +304,16 @@ class Defender {
             ctx.fillStyle = "green";
             ctx.fillRect(this.x,this.y-14,this.width * this.health/100 /10,10);
            }
+           
 
     }
     update(){
         if (this.shooting){
             this.timer++;
+            if(frame % 52 == 0){
+                if(this.frameX < this.maxFrame) this.frameX++;
+                else this.frameX = this.minFrame;
+            }
             Ptype = this.type;
             let shootingSpeed = 0;
             if(this.type == 1){
@@ -278,7 +323,10 @@ class Defender {
                }else if (this.type == 2){
                    shootingSpeed = 0;
        
-               }
+               }else if (this.type == 4){
+                shootingSpeed = 120;
+    
+            }
             if (this.timer % shootingSpeed === 0){
                 projectiles.push(new Projectile(this.x + 70, this.y + cellSize / 2));
             }
@@ -639,4 +687,8 @@ function wall(){
 function Ucannon(){
     Dtype = 3;
     Ptype = 3;
+}
+function Plant(){
+    Dtype = 4;
+    Ptype = 4;
 }
