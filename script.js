@@ -193,14 +193,16 @@ function handleProjectiles(){
                     console.log('working');
                     let bonus =50;
                     numberOfResources += bonus;
-                    floatingMessages.push(new floatingMessage('Bonus : ' + bonus, enemies[y].x, enemies[y].y, 25,'blue'));
-                    }
+                    floatingMessages.push(new floatingMessage('+' + bonus, enemies[y].x, enemies[y].y, 25,'yellow'));
+                    floatingMessages.push(new floatingMessage('+' + bonus, 250, 70, 30, 'yellow'));
+                    }else{
+                        floatingMessages.push(new floatingMessage('hit', enemies[y].x, enemies[y].y, 25,'blue'));
+                        }
                if (projectiles[i].type != 3){
                 projectiles.splice(i, 1);
                 i--;
                }
                 
-                if(enemies[y].health > 0 ){floatingMessages.push(new floatingMessage('hit', enemies[y].x, enemies[y].y, 25,'blue'));}
             }
         };
         if (projectiles[i] && projectiles[i].x > canvas.width - cellSize){
@@ -274,10 +276,13 @@ class Defender {
         
         if(this.type == 1){
          cimg = document.getElementById("archer");
-        }else if(this.type == 0||this.type ==3){
+        }else if(this.type == 0){
             var cimg = document.getElementById("cannon");
         }else if (this.type == 2){
             cimg = document.getElementById("wall");
+
+        } else if (this.type ==3){
+            cimg = document.getElementById("GC");
 
         } 
          if (this.type == 4){
@@ -314,7 +319,7 @@ class Defender {
     update(){
         if (this.shooting){
             this.timer++;
-            if(frame % 51 == 0){
+            if(frame % 52 == 0){
                 if(this.frameX < this.maxFrame) this.frameX++;
                 else this.frameX = this.minFrame;
             }
@@ -537,7 +542,14 @@ function handleEnemies(){
             let gainedResources = enemies[i].startinghealth/10;
             numberOfResources += gainedResources;
             score++;
-            floatingMessages.push(new floatingMessage('+' + gainedResources,enemies[i].x ,enemies[i].y ,30 ,'black'));
+            if(enemies[i].type != 0){
+                floatingMessages.push(new floatingMessage('+' + gainedResources,enemies[i].x ,enemies[i].y ,30 ,'black'));
+            }
+            if(enemies[i].type == 0){
+                floatingMessages.push(new floatingMessage('+' + gainedResources,enemies[i].x ,enemies[i].y + 40 ,30 ,'black'));
+            }
+              
+          
             floatingMessages.push(new floatingMessage('+' + gainedResources, 250, 50, 30, 'black'));
             const findThisIndex = enemyPositions.indexOf(enemies[i].y);
             enemyPositions.splice(findThisIndex,1);
