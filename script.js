@@ -542,6 +542,7 @@ function handleEnemies(){
             let gainedResources = enemies[i].startinghealth/10;
             numberOfResources += gainedResources;
             score++;
+            floatingMessages.push(new floatingMessage('+' + 1, 120, 35, 30, 'black'));
             if(enemies[i].type != 0){
                 floatingMessages.push(new floatingMessage('+' + gainedResources,enemies[i].x ,enemies[i].y ,30 ,'black'));
             }
