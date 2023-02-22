@@ -112,7 +112,7 @@ class Projectile {
             this.y = y - 14;
           }else if (this.type==0 || this.type==3 ){
             this.y = y -47;
-          }else if (this.type==2){
+          }else if (this.type==2 || this.type==5){
             this.y = y -47;
           }else if ( this.type==4){
             this.y = y -27;
@@ -122,7 +122,7 @@ class Projectile {
             this.width = 50;
           }else if (this.type==0 ||this.type==3){
             this.width = 30;
-          }else if (this.type==2){
+          }else if (this.type==2 || this.type==5){
             this.width = 1;
           }
           //projectile height
@@ -130,7 +130,7 @@ class Projectile {
             this.height = 20;
           }else if (this.type==0 ||this.type==3){
             this.height = 30;
-          }else if (this.type==2){
+          }else if (this.type==2 || this.type==5){
             this.height = 1;
           }
       
@@ -140,7 +140,7 @@ class Projectile {
             this.power = 75;
           }else if (this.type ==0 ){
             this.power = 125;
-          }else if (this.type ==2){
+          }else if (this.type==2 || this.type==5){
             this.power = 0;
           }else if(this.type==3){
             this.power = 250;
@@ -166,7 +166,7 @@ class Projectile {
           img = document.getElementById("arrow");
         }else if(this.type == 0 ){
             var img = document.getElementById("cannonball");
-        }else if(this.type == 2){
+        }else if(this.type==2 || this.type==5){
            
             img = document.getElementById("cannonball");
            
@@ -251,7 +251,7 @@ class Defender {
             this.health = 200;
            }else if(this.type == 0 ){
                this.health = 500;
-           }else if (this.type == 2){
+           }else if (this.type==2 || this.type==5){
               this.health = 2000;
            }else if (this.type == 3){
             this.health = 1000;
@@ -264,6 +264,9 @@ class Defender {
             cost = 30;
            }else if(this.type == 3){
             cost = 500;
+           }else if(this.type == 5){
+            cost = 150;
+
            }
            if(this.type == 4){
             this.DefenderType = DefenderTypes[0];
@@ -284,6 +287,9 @@ class Defender {
         } else if (this.type ==3){
             cimg = document.getElementById("GC");
 
+        }else if (this.type ==5){
+            cimg = document.getElementById("PC");
+
         } 
          if (this.type == 4){
             ctx.drawImage(this.DefenderType, this.frameX * this.spriteWidth, 0,this.spriteWidth,this.spriteHeight,this.x,this.y,this.width,this.height);
@@ -302,7 +308,7 @@ class Defender {
             ctx.fillRect(this.x,this.y-14,this.width,10);
             ctx.fillStyle = "green";
             ctx.fillRect(this.x,this.y-14,this.width * this.health/100 /5,10);
-           }else if (this.type == 2){
+           }else if (this.type == 2 || this.type == 5){
             ctx.fillStyle = "red";
             ctx.fillRect(this.x,this.y-14,this.width,10);
             ctx.fillStyle = "green";
@@ -329,7 +335,7 @@ class Defender {
                shootingSpeed = 100;
                }else if(this.type == 0||this.type == 3){
                    shootingSpeed = 200;
-               }else if (this.type == 2){
+               }else if (this.type == 2||this.type == 5){
                    shootingSpeed = 0;
        
                }else if (this.type == 4){
@@ -375,6 +381,14 @@ function handleDefenders(){
                 enemies[j].movement = 0;
                 defenders[i].health--;
                 defenders[i].health--;
+                if(defenders[i].type == 5){
+                    enemies[j].health --;
+                    enemies[j].health --;
+                    enemies[j].health --;
+                    enemies[j].health --;
+                    enemies[j].health --;
+                    enemies[j].health --; enemies[j].health --;
+                }
                 console.log(defenders[i] && defenders[i].health <= 0 == true);
             
             }
@@ -402,7 +416,7 @@ enemyTypes.push(weakling);
 //average.src ='average.png';
 //enemyTypes.push(average);
 // Enemies
-const Eamounts = [200,500,2000];
+let Eamounts = [200,500,2000];
 class Enemy {
     constructor(verticalPosition){
         
@@ -646,16 +660,18 @@ animate();
 function handleGameStatus(){
     ctx.fillStyle = 'white';
     ctx.font = '25px Helvetica';
-    if(score == 100){
+    if(score == 50){
         round = 2;
       }else if(score == 150){
         round = 3;
       }else if(score == 250){
         round = 4;
+        Eamounts = [500,2000];
       }else if(score == 350){
         round = 5;
       }else if(score == 450){
         round = 'last';
+        Eamounts = [2000];
       }
     ctx.fillText('Score: ' + score, 10, 35);
     ctx.fillText('Available resources: ' + numberOfResources, 10, 85);
@@ -708,4 +724,8 @@ function Ucannon(){
 function Plant(){
     Dtype = 4;
     Ptype = 4;
+}
+function CeleryPlant(){
+    Dtype = 5;
+    Ptype = 5;
 }
