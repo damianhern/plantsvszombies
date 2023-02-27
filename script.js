@@ -109,7 +109,7 @@ class Projectile {
         this.x = x + 10;
         this.type = Ptype;
         if (this.type == 1){
-            this.y = y - 14;
+            this.y = y - 20;
           }else if (this.type==0 || this.type==3 ){
             this.y = y -47;
           }else if (this.type==2 || this.type==5){
@@ -118,7 +118,9 @@ class Projectile {
             this.y = y -27;
           }
           //projectile width
-          if (this.type == 1|| this.type == 4){
+          if (this.type == 1){
+            this.width = 25;
+          } else if(this.type == 4){
             this.width = 50;
           }else if (this.type==0 ||this.type==3){
             this.width = 30;
@@ -126,7 +128,9 @@ class Projectile {
             this.width = 1;
           }
           //projectile height
-          if (this.type == 1 || this.type ==4){
+          if (this.type == 1){
+            this.height = 10;
+          } else if(this.type == 4){
             this.height = 20;
           }else if (this.type==0 ||this.type==3){
             this.height = 30;
@@ -163,7 +167,7 @@ class Projectile {
     draw(){
        
         if (this.type == 1){
-          img = document.getElementById("arrow");
+          img = document.getElementById("AGB");
         }else if(this.type == 0 ){
             var img = document.getElementById("cannonball");
         }else if(this.type==2 || this.type==5){
@@ -174,7 +178,7 @@ class Projectile {
            
             img = document.getElementById("cannonball");
            
-        }else if( this.type==3){
+        }else if( this.type == 3){
            
             img = document.getElementById("GCB");
            
@@ -220,6 +224,9 @@ const DefenderTypes = [];
 const plant= new Image();
 plant.src ='plant.png';
 DefenderTypes.push(plant);
+const armyG = new Image();
+armyG.src = 'AG.png';
+DefenderTypes.push(armyG);
 class Defender {
     constructor(x, y){
         this.x = x;
@@ -236,15 +243,24 @@ class Defender {
         this.minFrame = 0;
         if(this.type == 4){
             this.maxFrame = 1;
+           }else if (this.type == 1){
+            this.maxFrame = 3;
+ 
            }
        
        
         if(this.type == 4){
             this.spriteWidth = 167;
 
+           }else if(this.type == 1){
+            this.spriteWidth = 96.5;
+
            }
            if(this.type == 4){
             this.spriteHeight = 243;
+
+           }else if(this.type == 1){
+            this.spriteHeight = 100;
 
            }
         if(this.type == 1|| this.type == 4){
@@ -256,7 +272,7 @@ class Defender {
            }else if (this.type == 3){
             this.health = 1000;
          }
-           if(this.type == 1 || this.type ==4){
+           if(this.type == 1 || this.type == 4){
             cost = 15;
            }else if(this.type == 0 ){
                cost = 50;
@@ -271,6 +287,9 @@ class Defender {
            if(this.type == 4){
             this.DefenderType = DefenderTypes[0];
 
+           }else if(this.type == 1){
+            this.DefenderType = DefenderTypes[1];
+
            }
 
         
@@ -278,8 +297,9 @@ class Defender {
     draw(){
         
         if(this.type == 1){
-         cimg = document.getElementById("archer");
-        }else if(this.type == 0){
+         ctx.drawImage(this.DefenderType, this.frameX * this.spriteWidth, 0,this.spriteWidth,this.spriteHeight,this.x,this.y,this.width,this.height);
+        }
+         if(this.type == 0){
             var cimg = document.getElementById("cannon");
         }else if (this.type == 2){
             cimg = document.getElementById("wall");
@@ -295,7 +315,7 @@ class Defender {
             ctx.drawImage(this.DefenderType, this.frameX * this.spriteWidth, 0,this.spriteWidth,this.spriteHeight,this.x,this.y,this.width,this.height);
            }
         
-            if(this.type != 4)ctx.drawImage(cimg,this.x, this.y, this.width, this.height);
+            if(this.type != 4 && this.type != 1 )ctx.drawImage(cimg,this.x, this.y, this.width, this.height);
        
        
         if(this.type == 1 || this.type == 4){
@@ -325,14 +345,13 @@ class Defender {
     update(){
         if (this.shooting){
             this.timer++;
-            if(frame % 52 == 0){
-                if(this.frameX < this.maxFrame) this.frameX++;
-                else this.frameX = this.minFrame;
-            }
+            
             Ptype = this.type;
             let shootingSpeed = 0;
+            let frameShot = 0 ;
             if(this.type == 1){
                shootingSpeed = 100;
+               frameShot = 15;
                }else if(this.type == 0||this.type == 3){
                    shootingSpeed = 200;
                }else if (this.type == 2||this.type == 5){
@@ -340,7 +359,11 @@ class Defender {
        
                }else if (this.type == 4){
                 shootingSpeed = 120;
-    
+                frameShot =57;
+            }
+            if(frame % frameShot == 0){
+                if(this.frameX < this.maxFrame) this.frameX++;
+                else this.frameX = this.minFrame;
             }
             if (this.timer % shootingSpeed === 0){
                 projectiles.push(new Projectile(this.x + 70, this.y + cellSize / 2));
