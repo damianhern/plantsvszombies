@@ -106,11 +106,15 @@ function handleFloatingMessages(){
 // Projectiles
 class Projectile {
     constructor(x, y){
-        this.x = x + 10;
+        if (this.type == 1){
+            this.x = x;
+          }else this.x = x + 10;
         this.type = Ptype;
         if (this.type == 1){
             this.y = y - 20;
-          }else if (this.type==0 || this.type==3 ){
+          }else if (this.type==0){
+            this.y = y-29;
+          }else if(this.type==3 ){
             this.y = y -47;
           }else if (this.type==2 || this.type==5){
             this.y = y -47;
@@ -169,7 +173,7 @@ class Projectile {
         if (this.type == 1){
           img = document.getElementById("AGB");
         }else if(this.type == 0 ){
-            var img = document.getElementById("cannonball");
+            var img = document.getElementById("WF");
         }else if(this.type==2 || this.type==5){
            
             img = document.getElementById("cannonball");
@@ -227,6 +231,9 @@ DefenderTypes.push(plant);
 const armyG = new Image();
 armyG.src = 'AG.png';
 DefenderTypes.push(armyG);
+const BW = new Image();
+BW.src = 'Wizard.png';
+DefenderTypes.push(BW);
 class Defender {
     constructor(x, y){
         this.x = x;
@@ -245,6 +252,8 @@ class Defender {
             this.maxFrame = 1;
            }else if (this.type == 1){
             this.maxFrame = 3;
+           }else if (this.type == 0){
+            this.maxFrame = 7;
  
            }
        
@@ -255,12 +264,18 @@ class Defender {
            }else if(this.type == 1){
             this.spriteWidth = 96.5;
 
+           }else if(this.type == 0){
+            this.spriteWidth = 108;
+
            }
            if(this.type == 4){
             this.spriteHeight = 243;
 
            }else if(this.type == 1){
             this.spriteHeight = 100;
+
+           }else if(this.type == 0){
+            this.spriteHeight = 88;
 
            }
         if(this.type == 1|| this.type == 4){
@@ -290,6 +305,9 @@ class Defender {
            }else if(this.type == 1){
             this.DefenderType = DefenderTypes[1];
 
+           }else if(this.type == 0){
+            this.DefenderType = DefenderTypes[2];
+
            }
 
         
@@ -300,9 +318,10 @@ class Defender {
          ctx.drawImage(this.DefenderType, this.frameX * this.spriteWidth, 0,this.spriteWidth,this.spriteHeight,this.x,this.y,this.width,this.height);
         }
          if(this.type == 0){
-            var cimg = document.getElementById("cannon");
-        }else if (this.type == 2){
-            cimg = document.getElementById("wall");
+            ctx.drawImage(this.DefenderType, this.frameX * this.spriteWidth, 0,this.spriteWidth,this.spriteHeight,this.x,this.y,this.width,this.height);
+        }
+         if (this.type == 2){
+            var cimg = document.getElementById("wall");
 
         } else if (this.type ==3){
             cimg = document.getElementById("GC");
@@ -315,7 +334,7 @@ class Defender {
             ctx.drawImage(this.DefenderType, this.frameX * this.spriteWidth, 0,this.spriteWidth,this.spriteHeight,this.x,this.y,this.width,this.height);
            }
         
-            if(this.type != 4 && this.type != 1 )ctx.drawImage(cimg,this.x, this.y, this.width, this.height);
+            if(this.type != 4 && this.type != 1 && this.type != 0 )ctx.drawImage(cimg,this.x, this.y, this.width, this.height);
        
        
         if(this.type == 1 || this.type == 4){
@@ -352,23 +371,29 @@ class Defender {
             if(this.type == 1){
                shootingSpeed = 100;
                frameShot = 15;
-               }else if(this.type == 0||this.type == 3){
+               }else if(this.type == 0){
+                shootingSpeed = 200;
+                frameShot = 10;
+               }else if (this.type == 3){
                    shootingSpeed = 200;
                }else if (this.type == 2||this.type == 5){
                    shootingSpeed = 0;
        
                }else if (this.type == 4){
                 shootingSpeed = 120;
-                frameShot =57;
+                frameShot = 57;
             }
             if(frame % frameShot == 0){
                 if(this.frameX < this.maxFrame) this.frameX++;
-                else this.frameX = this.minFrame;
+                else {
+                    this.frameX = this.minFrame;
+                    projectiles.push(new Projectile(this.x + 70, this.y + cellSize / 2));
+                }
             }
-            if (this.timer % shootingSpeed === 0){
+            if (this.timer % shootingSpeed === 0 && this.type != 0 && this.type != 1 && this.type != 4 ){
                 projectiles.push(new Projectile(this.x + 70, this.y + cellSize / 2));
             }
-        }
+        }else this.frameX = this.minFrame;
 
     }
 }
@@ -728,7 +753,7 @@ window.addEventListener('resize', function(){
 function restart(){
     window.location.reload();
 }
-function cannon(){
+function Wizard(){
     Dtype = 0;
     Ptype = 0;
 }
