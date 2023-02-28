@@ -486,6 +486,24 @@ const enemyTypes = [];
 const weakling = new Image();
 weakling.src ='weakling.png';
 enemyTypes.push(weakling);
+const IP = new Image();
+IP.src ='2enemy.png';
+enemyTypes.push(IP);
+
+
+const enemyTypesA = [];
+const EA1 = new Image();
+ EA1.src ='2EA1.png';
+enemyTypes.push(EA1);
+const EA2 = new Image();
+EA2.src ='2EA2.png';
+enemyTypes.push(EA2);
+
+
+
+
+
+
 //const average = new Image();
 //average.src ='average.png';
 //enemyTypes.push(average);
@@ -524,6 +542,9 @@ class Enemy {
            if(this.type == 0){
             this.enemyType = enemyTypes[0];
 
+           } else if(this.type == 1){
+            this.enemyType = enemyTypes[1];
+
            }
        
         this.frameX = 0;
@@ -533,7 +554,7 @@ class Enemy {
             this.maxFrame = 7;
 
            }else if(this.type == 1){
-            this.maxFrame = 9;
+            this.maxFrame = 5;
            
            }else if (this.type == 2){
             this.maxFrame = 7;
@@ -545,7 +566,7 @@ class Enemy {
             this.spriteWidth = 292;
 
            }else if(this.type == 1){
-            this.spriteWidth = 177;
+            this.spriteWidth = 109.666667;
            
            }else if (this.type == 2){
             this.spriteWidth = 176.6;
@@ -555,7 +576,7 @@ class Enemy {
             this.spriteHeight = 410;
 
            }else if(this.type == 1){
-            this.spriteHeight = 208;
+            this.spriteHeight = 71;
 
            
            }else if (this.type == 2){
@@ -600,12 +621,7 @@ class Enemy {
         if(this.type == 0){
         ctx.drawImage(this.enemyType, this.frameX * this.spriteWidth, 0,this.spriteWidth,this.spriteHeight,this.x,this.y,this.width,this.height);
            }else if(this.type == 1){
-            //ctx.drawImage(this.enemyType, this.frameX * this.spriteWidth, 0,this.spriteWidth,this.spriteHeight,this.x,this.y,this.width,this.height);
-            ctx.fillStyle = "red";
-            ctx.fillRect(this.x,this.y,this.width,this.height);
-            ctx.fillStyle = "white";
-            ctx.font = '20px Helvetica';
-            ctx.fillText(" Average", this.x + 7, this.y + 50);
+            ctx.drawImage(this.enemyType, this.frameX * this.spriteWidth, 0,this.spriteWidth,this.spriteHeight,this.x,this.y,this.width,this.height);
            }else if (this.type == 2){
             ctx.fillStyle = '#960018';
             ctx.fillRect(this.x,this.y,this.width,this.height);
