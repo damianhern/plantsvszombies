@@ -106,12 +106,14 @@ function handleFloatingMessages(){
 // Projectiles
 class Projectile {
     constructor(x, y){
-        if (this.type == 1){
-            this.x = x;
-          }else this.x = x + 10;
+      
         this.type = Ptype;
         if (this.type == 1){
-            this.y = y - 20;
+            this.x = x - 10;
+          }else this.x = x + 10;
+
+        if (this.type == 1){
+            this.y = y - 45;
           }else if (this.type==0){
             this.y = y-29;
           }else if(this.type==3 ){
@@ -123,20 +125,24 @@ class Projectile {
           }
           //projectile width
           if (this.type == 1){
-            this.width = 25;
+            this.width = 30;
           } else if(this.type == 4){
             this.width = 50;
-          }else if (this.type==0 ||this.type==3){
+          }else if (this.type==0){
+            this.width = 40;
+          }else if(this.type==3){
             this.width = 30;
           }else if (this.type==2 || this.type==5){
             this.width = 1;
           }
           //projectile height
           if (this.type == 1){
-            this.height = 10;
+            this.height = 30;
           } else if(this.type == 4){
             this.height = 20;
-          }else if (this.type==0 ||this.type==3){
+          }else if (this.type==0){
+            this.height = 40
+          }else if(this.type==3){
             this.height = 30;
           }else if (this.type==2 || this.type==5){
             this.height = 1;
@@ -171,7 +177,7 @@ class Projectile {
     draw(){
        
         if (this.type == 1){
-          img = document.getElementById("AGB");
+          img = document.getElementById("YWB");
         }else if(this.type == 0 ){
             var img = document.getElementById("WF");
         }else if(this.type==2 || this.type==5){
@@ -228,9 +234,9 @@ const DefenderTypes = [];
 const plant= new Image();
 plant.src ='plant.png';
 DefenderTypes.push(plant);
-const armyG = new Image();
-armyG.src = 'AG.png';
-DefenderTypes.push(armyG);
+const YW = new Image();
+YW.src = 'YW.png';
+DefenderTypes.push(YW);
 const BW = new Image();
 BW.src = 'Wizard.png';
 DefenderTypes.push(BW);
@@ -251,7 +257,7 @@ class Defender {
         if(this.type == 4){
             this.maxFrame = 1;
            }else if (this.type == 1){
-            this.maxFrame = 3;
+            this.maxFrame = 6;
            }else if (this.type == 0){
             this.maxFrame = 7;
  
@@ -262,7 +268,7 @@ class Defender {
             this.spriteWidth = 167;
 
            }else if(this.type == 1){
-            this.spriteWidth = 96.5;
+            this.spriteWidth = 187.857143;
 
            }else if(this.type == 0){
             this.spriteWidth = 108;
@@ -272,7 +278,7 @@ class Defender {
             this.spriteHeight = 243;
 
            }else if(this.type == 1){
-            this.spriteHeight = 100;
+            this.spriteHeight = 140;
 
            }else if(this.type == 0){
             this.spriteHeight = 88;
@@ -369,8 +375,8 @@ class Defender {
             let shootingSpeed = 0;
             let frameShot = 0 ;
             if(this.type == 1){
-               shootingSpeed = 100;
-               frameShot = 15;
+               shootingSpeed = 200;
+               frameShot = 10;
                }else if(this.type == 0){
                 shootingSpeed = 200;
                 frameShot = 10;
@@ -753,11 +759,11 @@ window.addEventListener('resize', function(){
 function restart(){
     window.location.reload();
 }
-function Wizard(){
+function BWizard(){
     Dtype = 0;
     Ptype = 0;
 }
-function archer(){
+function YWizard(){
     Dtype = 1;
     Ptype = 1;
 }
