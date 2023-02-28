@@ -109,7 +109,11 @@ class Projectile {
       
         this.type = Ptype;
         if (this.type == 1){
-            this.x = x - 10;
+            this.x = x - 20;
+          }else if (this.type == 3){
+            this.x = x - 20;
+          }else if (this.type == 4){
+            this.x = x - 20;
           }else this.x = x + 10;
 
         if (this.type == 1){
@@ -117,7 +121,7 @@ class Projectile {
           }else if (this.type==0){
             this.y = y-29;
           }else if(this.type==3 ){
-            this.y = y -47;
+            this.y = y -40;
           }else if (this.type==2 || this.type==5){
             this.y = y -47;
           }else if ( this.type==4){
@@ -190,7 +194,7 @@ class Projectile {
            
         }else if( this.type == 3){
            
-            img = document.getElementById("GCB");
+            img = document.getElementById("FWB");
            
         }
         ctx.drawImage(img,this.x, this.y, this.width, this.height);
@@ -240,6 +244,9 @@ DefenderTypes.push(YW);
 const BW = new Image();
 BW.src = 'Wizard.png';
 DefenderTypes.push(BW);
+const FW = new Image();
+FW.src = 'FW.png';
+DefenderTypes.push(FW);
 class Defender {
     constructor(x, y){
         this.x = x;
@@ -261,6 +268,9 @@ class Defender {
            }else if (this.type == 0){
             this.maxFrame = 7;
  
+           }else if (this.type == 3){
+            this.maxFrame = 7;
+ 
            }
        
        
@@ -273,6 +283,9 @@ class Defender {
            }else if(this.type == 0){
             this.spriteWidth = 108;
 
+           }else if (this.type == 3){
+            this.spriteWidth = 108.25;
+ 
            }
            if(this.type == 4){
             this.spriteHeight = 243;
@@ -282,6 +295,9 @@ class Defender {
 
            }else if(this.type == 0){
             this.spriteHeight = 88;
+
+           }else if(this.type == 3){
+            this.spriteHeight = 97;
 
            }
         if(this.type == 1|| this.type == 4){
@@ -314,6 +330,9 @@ class Defender {
            }else if(this.type == 0){
             this.DefenderType = DefenderTypes[2];
 
+           }else if(this.type == 3){
+            this.DefenderType = DefenderTypes[3];
+
            }
 
         
@@ -330,7 +349,7 @@ class Defender {
             var cimg = document.getElementById("wall");
 
         } else if (this.type ==3){
-            cimg = document.getElementById("GC");
+            ctx.drawImage(this.DefenderType, this.frameX * this.spriteWidth, 0,this.spriteWidth,this.spriteHeight,this.x,this.y,this.width,this.height);
 
         }else if (this.type ==5){
             cimg = document.getElementById("PC");
@@ -340,7 +359,7 @@ class Defender {
             ctx.drawImage(this.DefenderType, this.frameX * this.spriteWidth, 0,this.spriteWidth,this.spriteHeight,this.x,this.y,this.width,this.height);
            }
         
-            if(this.type != 4 && this.type != 1 && this.type != 0 )ctx.drawImage(cimg,this.x, this.y, this.width, this.height);
+            if(this.type != 4 && this.type != 1 && this.type != 0 && this.type != 3 )ctx.drawImage(cimg,this.x, this.y, this.width, this.height);
        
        
         if(this.type == 1 || this.type == 4){
@@ -375,19 +394,20 @@ class Defender {
             let shootingSpeed = 0;
             let frameShot = 0 ;
             if(this.type == 1){
-               shootingSpeed = 200;
-               frameShot = 10;
+               shootingSpeed = 400;
+               frameShot = 7;
                }else if(this.type == 0){
                 shootingSpeed = 200;
                 frameShot = 10;
                }else if (this.type == 3){
                    shootingSpeed = 200;
+                   frameShot = 10;
                }else if (this.type == 2||this.type == 5){
                    shootingSpeed = 0;
        
                }else if (this.type == 4){
-                shootingSpeed = 120;
-                frameShot = 57;
+                shootingSpeed = 20;
+                frameShot = 20;
             }
             if(frame % frameShot == 0){
                 if(this.frameX < this.maxFrame) this.frameX++;
@@ -396,7 +416,7 @@ class Defender {
                     projectiles.push(new Projectile(this.x + 70, this.y + cellSize / 2));
                 }
             }
-            if (this.timer % shootingSpeed === 0 && this.type != 0 && this.type != 1 && this.type != 4 ){
+            if (this.timer % shootingSpeed === 0 && this.type != 0 && this.type != 1 && this.type != 4  && this.type != 3 ){
                 projectiles.push(new Projectile(this.x + 70, this.y + cellSize / 2));
             }
         }else this.frameX = this.minFrame;
@@ -771,7 +791,7 @@ function wall(){
     Dtype = 2; 
     Ptype = 2;
 }
-function Ucannon(){
+function FWizard(){
     Dtype = 3;
     Ptype = 3;
 }
