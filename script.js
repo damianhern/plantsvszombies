@@ -456,8 +456,14 @@ function handleDefenders(){
                 if(enemies[j].type == 1){
                     enemies[j].enemyType = enemyTypesA[0];
                 }
-                defenders[i].health--;
-                defenders[i].health--;
+                if(enemies[j].type == 1 && enemies[j].frameX == 4){
+                    defenders[i].health -= 10;
+                } else if(enemies[j].type != 1){
+                    defenders[i].health--;
+                    defenders[i].health--;
+                }  
+           
+                
                 if(defenders[i].type == 5){
                     enemies[j].health --;
                     enemies[j].health --;
