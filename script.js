@@ -155,13 +155,13 @@ class Projectile {
         this.speed = 3;
         //projectile power 
         if (this.type == 1 || this.type ==4){
-            this.power = 75;
+            this.power = 32.5;
           }else if (this.type ==0 ){
-            this.power = 125;
+            this.power = 75;
           }else if (this.type==2 || this.type==5){
             this.power = 0;
           }else if(this.type==3){
-            this.power = 250;
+            this.power = 125;
           }
        
     }
@@ -394,19 +394,19 @@ class Defender {
             let shootingSpeed = 0;
             let frameShot = 0 ;
             if(this.type == 1){
-               shootingSpeed = 400;
-               frameShot = 7;
+              
+               frameShot = 4;
                }else if(this.type == 0){
-                shootingSpeed = 200;
-                frameShot = 10;
+               
+                frameShot = 8;
                }else if (this.type == 3){
-                   shootingSpeed = 150;
-                   frameShot = 5;
+                
+                   frameShot = 16;
                }else if (this.type == 2||this.type == 5){
                    shootingSpeed = 0;
        
                }else if (this.type == 4){
-                shootingSpeed = 20;
+                
                 frameShot = 20;
             }
             if(frame % frameShot == 0){
@@ -453,6 +453,9 @@ function handleDefenders(){
            
             if (defenders[i] && collision(defenders[i], enemies[j])){
                 enemies[j].movement = 0;
+                if(enemies[j].type == 1){
+                    enemies[j].enemyType = enemyTypesA[0];
+                }
                 defenders[i].health--;
                 defenders[i].health--;
                 if(defenders[i].type == 5){
@@ -470,7 +473,10 @@ function handleDefenders(){
             if (defenders[i] && defenders[i].health <= 0){
                 console.log(enemies[j]);
                 defenders.splice(i, 1);
-                 enemies[j].movement = enemies[j].speed;          
+                 enemies[j].movement = enemies[j].speed;       
+                 if(enemies[j].type == 1){
+                    enemies[j].enemyType = enemyTypes[1];
+                }   
                
             }
       
@@ -494,10 +500,10 @@ enemyTypes.push(IP);
 const enemyTypesA = [];
 const EA1 = new Image();
  EA1.src ='2EA1.png';
-enemyTypes.push(EA1);
+enemyTypesA.push(EA1);
 const EA2 = new Image();
 EA2.src ='2EA2.png';
-enemyTypes.push(EA2);
+enemyTypesA.push(EA2);
 
 
 
