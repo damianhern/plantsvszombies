@@ -8,7 +8,7 @@ const gameGrid = [];
 let gameOver = false;
 let frame = 0;
 let score = 0;
-const winningScore = 500;
+const winningScore = 3000;
 let Dtype = 0;
 let Ptype = 0;
 
@@ -760,8 +760,16 @@ function handleGameStatus(){
       }else if(score == 350){
         round = 5;
       }else if(score == 450){
-        round = 'last';
+        round = 6;
         Eamounts = [2000];
+      }else if(score == 750){
+        round = 7;
+      }else if(score == 1250){
+        round = 8;
+      }else if(score == 2250){
+        round = 9;
+      }else if(score == 3000){
+        round = 'last';
       }
     ctx.fillText('Score: ' + score, 10, 35);
     ctx.fillText('Available resources: ' + numberOfResources, 10, 85);
