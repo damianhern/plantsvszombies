@@ -400,8 +400,8 @@ class Defender {
                 shootingSpeed = 200;
                 frameShot = 10;
                }else if (this.type == 3){
-                   shootingSpeed = 200;
-                   frameShot = 10;
+                   shootingSpeed = 150;
+                   frameShot = 5;
                }else if (this.type == 2||this.type == 5){
                    shootingSpeed = 0;
        
