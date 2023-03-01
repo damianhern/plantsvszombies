@@ -214,7 +214,7 @@ function handleProjectiles(){
                     floatingMessages.push(new floatingMessage('+' + bonus, enemies[y].x, enemies[y].y, 25,'yellow'));
                     floatingMessages.push(new floatingMessage('+' + bonus, 250, 70, 30, 'yellow'));
                     }else{
-                        floatingMessages.push(new floatingMessage('hit', enemies[y].x, enemies[y].y, 25,'blue'));
+                        floatingMessages.push(new floatingMessage('-' + projectiles[i].power, enemies[y].x, enemies[y].y, 25,'white'));
                         }
                if (projectiles[i].type != 3){
                 projectiles.splice(i, 1);
@@ -401,7 +401,7 @@ class Defender {
                 frameShot = 8;
                }else if (this.type == 3){
                 
-                   frameShot = 16;
+                   frameShot = 10;
                }else if (this.type == 2||this.type == 5){
                    shootingSpeed = 0;
        
@@ -660,7 +660,7 @@ function handleEnemies(){
             score++;
             floatingMessages.push(new floatingMessage('+' + 1, 120, 35, 30, 'black'));
             if(enemies[i].type != 0){
-                floatingMessages.push(new floatingMessage('+' + gainedResources,enemies[i].x ,enemies[i].y ,30 ,'black'));
+                floatingMessages.push(new floatingMessage('+' + gainedResources,enemies[i].x ,enemies[i].y+40  ,30 ,'black'));
             }
             if(enemies[i].type == 0){
                 floatingMessages.push(new floatingMessage('+' + gainedResources,enemies[i].x ,enemies[i].y + 40 ,30 ,'black'));
