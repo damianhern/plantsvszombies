@@ -455,10 +455,16 @@ function handleDefenders(){
                 enemies[j].movement = 0;
                 if(enemies[j].type == 1){
                     enemies[j].enemyType = enemyTypesA[0];
+                } else if(enemies[j].type == 2){
+                    enemies[j].maxFrame = 3;
+                    enemies[j].enemyType = enemyTypesA[2];
+                
                 }
                 if(enemies[j].type == 1 && enemies[j].frameX == 4){
                     defenders[i].health -= 10;
-                } else if(enemies[j].type != 1){
+                }else if(enemies[j].type == 2 && enemies[j].frameX == 3){
+                    defenders[i].health -= 30;
+                }else if(enemies[j].type == 0){
                     defenders[i].health--;
                     defenders[i].health--;
                 }  
@@ -482,6 +488,9 @@ function handleDefenders(){
                  enemies[j].movement = enemies[j].speed;       
                  if(enemies[j].type == 1){
                     enemies[j].enemyType = enemyTypes[1];
+                } else if(enemies[j].type == 2){
+                    enemies[j].maxFrame = 5;
+                    enemies[j].enemyType = enemyTypes[2];
                 }   
                
             }
@@ -501,6 +510,9 @@ enemyTypes.push(weakling);
 const IP = new Image();
 IP.src ='2enemy.png';
 enemyTypes.push(IP);
+const BB = new Image();
+BB.src ='BBW.PNG';
+enemyTypes.push(BB);
 
 
 const enemyTypesA = [];
@@ -510,6 +522,10 @@ enemyTypesA.push(EA1);
 const EA2 = new Image();
 EA2.src ='2EA2.png';
 enemyTypesA.push(EA2);
+const BBA = new Image();
+BBA.src ='BBA.PNG';
+enemyTypesA.push(BBA);
+
 
 
 
@@ -557,6 +573,9 @@ class Enemy {
            } else if(this.type == 1){
             this.enemyType = enemyTypes[1];
 
+           } else if(this.type == 2){
+            this.enemyType = enemyTypes[2];
+
            }
        
         this.frameX = 0;
@@ -569,7 +588,7 @@ class Enemy {
             this.maxFrame = 5;
            
            }else if (this.type == 2){
-            this.maxFrame = 7;
+            this.maxFrame = 5;
            
            }
        
@@ -581,7 +600,7 @@ class Enemy {
             this.spriteWidth = 109.666667;
            
            }else if (this.type == 2){
-            this.spriteWidth = 176.6;
+            this.spriteWidth = 46.8333333;
            
            }
            if(this.type == 0){
@@ -592,7 +611,7 @@ class Enemy {
 
            
            }else if (this.type == 2){
-            this.spriteHeight = 410;
+            this.spriteHeight = 51;
 
            
            }
@@ -603,7 +622,11 @@ class Enemy {
         
     }
     update(){
-        if(frame % 10 == 0){
+    let renderSpeed = 10;
+    if(this.type == 2){
+        renderSpeed = 20;
+    }
+        if(frame % renderSpeed == 0){
             if(this.frameX < this.maxFrame) this.frameX++;
             else this.frameX = this.minFrame;
         }
@@ -635,11 +658,7 @@ class Enemy {
            }else if(this.type == 1){
             ctx.drawImage(this.enemyType, this.frameX * this.spriteWidth, 0,this.spriteWidth,this.spriteHeight,this.x,this.y,this.width,this.height);
            }else if (this.type == 2){
-            ctx.fillStyle = '#960018';
-            ctx.fillRect(this.x,this.y,this.width,this.height);
-            ctx.fillStyle = "white";
-            ctx.font = '20px Helvetica';
-            ctx.fillText(" Big Boi", this.x + 7, this.y + 50);
+            ctx.drawImage(this.enemyType, this.frameX * this.spriteWidth, 0,this.spriteWidth,this.spriteHeight,this.x,this.y,this.width,this.height);
            }
 
         //ctx.drawImage(img, sx, sy,sw,sh,dx,dy,dw,dh);
