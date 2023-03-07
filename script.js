@@ -454,19 +454,25 @@ function handleDefenders(){
             if (defenders[i] && collision(defenders[i], enemies[j])){
                 enemies[j].movement = 0;
                 if(enemies[j].type == 1){
+                    enemies[j].maxFrame = 5;
+                    enemies[j].spriteWidth = 112.333333;
                     enemies[j].enemyType = enemyTypesA[0];
                 } else if(enemies[j].type == 2){
                     enemies[j].maxFrame = 3;
                     enemies[j].enemyType = enemyTypesA[2];
+                
+                } else if(enemies[j].type == 0){
+                    enemies[j].maxFrame = 4;
+                    enemies[j].spriteWidth = 59.4;
+                    enemies[j].enemyType = enemyTypesA[1];
                 
                 }
                 if(enemies[j].type == 1 && enemies[j].frameX == 4){
                     defenders[i].health -= 10;
                 }else if(enemies[j].type == 2 && enemies[j].frameX == 3){
                     defenders[i].health -= 30;
-                }else if(enemies[j].type == 0){
-                    defenders[i].health--;
-                    defenders[i].health--;
+                }else if(enemies[j].type == 0 && enemies[j].frameX == 4){
+                    defenders[i].health -= 5;
                 }  
            
                 
@@ -488,9 +494,14 @@ function handleDefenders(){
                  enemies[j].movement = enemies[j].speed;       
                  if(enemies[j].type == 1){
                     enemies[j].enemyType = enemyTypes[1];
+                    enemies[j].spriteWidth = 109.666667;
                 } else if(enemies[j].type == 2){
                     enemies[j].maxFrame = 5;
                     enemies[j].enemyType = enemyTypes[2];
+                }  else if(enemies[j].type == 0){
+                    enemies[j].maxFrame = 4;
+                    enemies[j].spriteWidth = 60.4;
+                    enemies[j].enemyType = enemyTypes[0];
                 }   
                
             }
@@ -582,7 +593,7 @@ class Enemy {
         this.frameY = 0;
         this.minFrame = 0;
         if(this.type == 0){
-            this.maxFrame = 7;
+            this.maxFrame = 4;
 
            }else if(this.type == 1){
             this.maxFrame = 5;
@@ -594,7 +605,7 @@ class Enemy {
        
        
         if(this.type == 0){
-            this.spriteWidth = 292;
+            this.spriteWidth = 60.4;
 
            }else if(this.type == 1){
             this.spriteWidth = 109.666667;
@@ -604,7 +615,7 @@ class Enemy {
            
            }
            if(this.type == 0){
-            this.spriteHeight = 410;
+            this.spriteHeight = 58;
 
            }else if(this.type == 1){
             this.spriteHeight = 71;
@@ -625,6 +636,8 @@ class Enemy {
     let renderSpeed = 10;
     if(this.type == 2){
         renderSpeed = 20;
+    }else if(this.type == 0){
+        renderSpeed = 12;
     }
         if(frame % renderSpeed == 0){
             if(this.frameX < this.maxFrame) this.frameX++;
