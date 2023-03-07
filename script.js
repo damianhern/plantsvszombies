@@ -143,7 +143,7 @@ class Projectile {
           if (this.type == 1){
             this.height = 30;
           } else if(this.type == 4){
-            this.height = 20;
+            this.height = 10;
           }else if (this.type==0){
             this.height = 40
           }else if(this.type==3){
