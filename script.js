@@ -14,7 +14,7 @@ let Ptype = 0;
 
 let enemiesInterval = 500;
 let cost = 0;
-let numberOfResources = 1000;
+let numberOfResources = 250;
 let round = 1;
 
 const projectiles = [];
@@ -470,7 +470,7 @@ function handleDefenders(){
                 if(enemies[j].type == 1 && enemies[j].frameX == 4){
                     defenders[i].health -= 10;
                 }else if(enemies[j].type == 2 && enemies[j].frameX == 3){
-                    defenders[i].health -= 30;
+                    defenders[i].health -= 45;
                 }else if(enemies[j].type == 0 && enemies[j].frameX == 4){
                     defenders[i].health -= 5;
                 }  
