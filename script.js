@@ -154,14 +154,14 @@ class Projectile {
       
         this.speed = 3;
         //projectile power 
-        if (this.type == 1 || this.type ==4){
-            this.power = 32.5;
-          }else if (this.type ==0 ){
-            this.power = 75;
-          }else if (this.type==2 || this.type==5){
+        if (this.type == 1 || this.type == 4){
+            this.power = 16;
+          }else if (this.type == 0 ){
+            this.power = 50;
+          }else if (this.type== 2 || this.type== 5){
             this.power = 0;
-          }else if(this.type==3){
-            this.power = 125;
+          }else if(this.type== 3){
+            this.power = 105;
           }
        
     }
