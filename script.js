@@ -728,7 +728,7 @@ class Resource {
         this.y = Math.random() * (canvas.height - cellSize * 2) + cellSize
         this.width = cellSize / 2;
         this.height = cellSize / 2;
-        this.amount = 25;
+        this.amount = 15;
     }
     update(){
         if (collision(this, mouse)){
@@ -763,7 +763,7 @@ function handleResources(){
 
 let addResources = setInterval(function(){
     if (score <= winningScore) resources.push(new Resource());
-}, 5000);
+}, 7000);
 
 /*********************************************************************************/
 
