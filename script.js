@@ -818,33 +818,33 @@ function handleGameStatus(){
     ctx.font = '25px Helvetica';
     if(score == 50){
         round = 2;
-        enemiesInterval = 470;
+        enemiesInterval = 450;
       }else if(score == 150){
         round = 3;
-        enemiesInterval  = 450;
+        enemiesInterval  = 400;
       }else if(score == 250){
         round = 4;
-        enemiesInterval = 430;
+        enemiesInterval = 350;
         Eamounts = [500,2000];
       }else if(score == 350){
         round = 5;
-        enemiesInterval = 410;
+        enemiesInterval = 300;
       }else if(score == 450){
         round = 6;
-        enemiesInterval = 390;
+        enemiesInterval = 250;
         Eamounts = [2000];
       }else if(score == 750){
         round = 7;
-        enemiesInterval = 370;
+        enemiesInterval = 200;
       }else if(score == 1250){
         round = 8;
-        enemiesInterval = 350;
+        enemiesInterval = 150;
       }else if(score == 2250){
         round = 9;
-        enemiesInterval = 310;
+        enemiesInterval = 100;
       }else if(score == 3000){
         round = 'last';
-        enemiesInterval = 5;
+        enemiesInterval = 1;
       }
     ctx.fillText('Score: ' + score, 10, 35);
     ctx.fillText('Available resources: ' + numberOfResources, 10, 85);
