@@ -818,30 +818,30 @@ function handleGameStatus(){
     ctx.font = '25px Helvetica';
     if(score == 50){
         round = 2;
-        enemiesInterval -=20;
+        enemiesInterval = 470;
       }else if(score == 150){
         round = 3;
-        enemiesInterval -=20;
+        enemiesInterval  = 450;
       }else if(score == 250){
         round = 4;
-        enemiesInterval -=20;
+        enemiesInterval = 430;
         Eamounts = [500,2000];
       }else if(score == 350){
         round = 5;
-        enemiesInterval -=20;
+        enemiesInterval = 410;
       }else if(score == 450){
         round = 6;
-        enemiesInterval -=20;
+        enemiesInterval = 390;
         Eamounts = [2000];
       }else if(score == 750){
         round = 7;
-        enemiesInterval -=20;
+        enemiesInterval = 370;
       }else if(score == 1250){
         round = 8;
-        enemiesInterval -=20;
+        enemiesInterval = 350;
       }else if(score == 2250){
         round = 9;
-        enemiesInterval -=20;
+        enemiesInterval = 310;
       }else if(score == 3000){
         round = 'last';
         enemiesInterval = 5;
