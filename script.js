@@ -329,7 +329,7 @@ class Defender {
            }else if (this.type == 2){
             cost = 30;
            }else if(this.type == 3){
-            cost = 500;
+            cost = 750;
            }else if(this.type == 5){
             cost = 150;
 
