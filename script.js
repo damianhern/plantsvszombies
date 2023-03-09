@@ -411,7 +411,7 @@ class Defender {
             let frameShot = 0 ;
             if(this.type == 1){
               
-               frameShot = 4;
+               frameShot = 6;
                }else if(this.type == 0){
                
                 frameShot = 8;
