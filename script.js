@@ -503,8 +503,8 @@ function handleDefenders(){
        
                     }
                     if(defenders[i].frameX == 4){
-                    enemies[j].health -= 199;
-                    floatingMessages.push(new floatingMessage("-199",enemies[j].x,enemies[j].y - 20 ,30 ,'black'));
+                    enemies[j].health -= 400;
+                    floatingMessages.push(new floatingMessage("-400",enemies[j].x,enemies[j].y - 20 ,30 ,'black'));
                     }
                 }
             }
