@@ -816,7 +816,7 @@ animate();
 function handleGameStatus(){
     ctx.fillStyle = 'white';
     ctx.font = '25px Helvetica';
-    if(score == 1){
+    if(score == 50){
         round = 2;
         enemiesInterval = 450;
         floatingMessages.push(new floatingMessage('Round 2', 100 ,canvas.height/2 ,200,'black'));
