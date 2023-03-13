@@ -95,7 +95,7 @@ function handleFloatingMessages(){
     for(let i = 0; i < floatingMessages.length; i++){
         floatingMessages[i].update();
         floatingMessages[i].draw();
-        if (floatingMessages[i].lifeSpan >= 50){
+        if (floatingMessages[i].lifeSpan >= 40){
             floatingMessages.splice(i, 1);
             i--;
 
