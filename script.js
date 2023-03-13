@@ -816,35 +816,44 @@ animate();
 function handleGameStatus(){
     ctx.fillStyle = 'white';
     ctx.font = '25px Helvetica';
-    if(score == 50){
+    if(score == 1){
         round = 2;
         enemiesInterval = 450;
+        floatingMessages.push(new floatingMessage('Round 2', 100 ,canvas.height/2 ,200,'black'));
       }else if(score == 150){
         round = 3;
         enemiesInterval  = 400;
+        floatingMessages.push(new floatingMessage('Round 3', 100 ,canvas.height/2 ,200,'black'));
       }else if(score == 250){
         round = 4;
         enemiesInterval = 350;
         Eamounts = [500,2000];
+        floatingMessages.push(new floatingMessage('Round 4', 100 ,canvas.height/2 ,200,'black'));
       }else if(score == 350){
         round = 5;
         enemiesInterval = 300;
+        floatingMessages.push(new floatingMessage('Round 5', 100 ,canvas.height/2 ,200,'black'));
       }else if(score == 450){
         round = 6;
         enemiesInterval = 250;
         Eamounts = [2000];
+        floatingMessages.push(new floatingMessage('Round 6', 100 ,canvas.height/2 ,200,'black'));
       }else if(score == 750){
         round = 7;
         enemiesInterval = 200;
+        floatingMessages.push(new floatingMessage('Round 7', 100 ,canvas.height/2 ,200,'black'));
       }else if(score == 1250){
         round = 8;
         enemiesInterval = 150;
+        floatingMessages.push(new floatingMessage('Round 8', 100 ,canvas.height/2 ,200,'black'));
       }else if(score == 2250){
         round = 9;
         enemiesInterval = 100;
+        floatingMessages.push(new floatingMessage('Round 9', 100 ,canvas.height/2 ,200,'black'));
       }else if(score == 3000){
         round = 'last';
         enemiesInterval = 1;
+        floatingMessages.push(new floatingMessage('Last Round', 100 ,canvas.height/2 ,200,'black'));
       }
     ctx.fillText('Score: ' + score, 10, 35);
     ctx.fillText('Available resources: ' + numberOfResources, 10, 85);
@@ -902,3 +911,19 @@ function Samurai(){
     Dtype = 5;
     Ptype = 5;
 }
+/*
+const areaSector = enemy.x / enemy.y * r^2/2;
+var circle = {
+    x: 0,
+    y: 0,
+    radius: 100,
+    angle: 0,
+    speed: 0.01,
+    update: function() {
+      this.angle += this.speed;
+      this.x = this.radius * Math.cos(this.angle);
+      this.y = this.radius * Math.sin(this.angle);
+    }
+
+ circumference of the circle = 2 * radius * PI
+*/
